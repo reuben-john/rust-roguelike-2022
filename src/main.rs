@@ -1,4 +1,5 @@
 mod map; // Add module to project
+mod player;
 
 // Create custom prelude to allow easy access in other modules
 mod prelude {
@@ -6,6 +7,7 @@ mod prelude {
     pub const SCREEN_WIDTH: i32 = 80;
     pub const SCREEN_HEIGHT: i32 = 50;
     pub use crate::map::*; // crate accesses the root of our tree which is main
+    pub use crate::player::*;
 }
 
 use prelude::*; // Import everything inside the prelude
