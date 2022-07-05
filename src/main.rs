@@ -47,8 +47,10 @@ impl GameState for State {
         self.player.render(ctx, &self.camera);
     }
 }
+embedded_resource!(TILE_FONT, "../resources/dungeonfont.png");
 
 fn main() -> BError {
+    link_resource!(TILE_FONT, "resources/dungeonfont.png");
     let context = BTermBuilder::new()
         .with_title("A World Apart: A Rust Roguelike")
         .with_fps_cap(30.0)
