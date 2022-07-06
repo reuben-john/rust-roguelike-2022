@@ -15,10 +15,10 @@ mod prelude {
     pub const DISPLAY_WIDTH: i32 = SCREEN_WIDTH / 2;
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
     pub use crate::camera::*;
+    pub use crate::components::*;
     pub use crate::map::*;
     pub use crate::map_builder::*;
-    pub use create::components::*;
-    pub use create::spawner::*;
+    pub use crate::spawner::*;
 }
 
 use crate::spawner::spawn_player;
