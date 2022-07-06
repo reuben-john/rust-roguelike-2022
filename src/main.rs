@@ -1,27 +1,30 @@
+#![warn(clippy::pedantic)]
+
 mod camera;
 mod components;
 mod map;
 mod map_builder;
 mod spawner;
+mod systems;
 
-// Create custom prelude to allow easy access in other modules
 mod prelude {
     pub use bracket_lib::prelude::*;
-    pub use legion::systems::CommandBuffer;
     pub use legion::world::SubWorld;
     pub use legion::*;
     pub const SCREEN_WIDTH: i32 = 80;
     pub const SCREEN_HEIGHT: i32 = 50;
     pub const DISPLAY_WIDTH: i32 = SCREEN_WIDTH / 2;
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
+    pub const MAP_LAYER: usize = 0;
+    pub const INTERACTIVE_LAYER: usize = 1;
     pub use crate::camera::*;
     pub use crate::components::*;
     pub use crate::map::*;
     pub use crate::map_builder::*;
     pub use crate::spawner::*;
+    pub use crate::systems::*;
 }
 
-use crate::spawner::spawn_player;
 use prelude::*;
 
 struct State {
@@ -49,18 +52,17 @@ impl State {
 
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
-        ctx.set_active_console(0);
+        ctx.set_active_console(MAP_LAYER);
         ctx.cls();
-        ctx.set_active_console(1);
+        ctx.set_active_console(INTERACTIVE_LAYER);
         ctx.cls();
-        // TODO: Execute Systems
-        // TODO: Render Draw Buffer
+        self.resources.insert(ctx.key);
+        self.systems.execute(&mut self.ecs, &mut self.resources);
+        render_draw_buffer(ctx).expect("Render error");
     }
 }
-embedded_resource!(TILE_FONT, "../resources/dungeonfont.png");
 
 fn main() -> BError {
-    link_resource!(TILE_FONT, "resources/dungeonfont.png");
     let context = BTermBuilder::new()
         .with_title("A World Apart: A Rust Roguelike")
         .with_fps_cap(30.0)
@@ -71,5 +73,6 @@ fn main() -> BError {
         .with_simple_console(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
         .with_simple_console_no_bg(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
         .build()?;
+
     main_loop(context, State::new())
 }
