@@ -16,7 +16,8 @@ mod prelude {
     pub const DISPLAY_WIDTH: i32 = SCREEN_WIDTH / 2;
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
     pub const MAP_LAYER: usize = 0;
-    pub const INTERACTIVE_LAYER: usize = 1;
+    pub const ENTITY_LAYER: usize = 1;
+    pub const HUD_LAYER: usize = 2;
     pub use crate::camera::*;
     pub use crate::components::*;
     pub use crate::map::*;
@@ -66,9 +67,13 @@ impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
         ctx.set_active_console(MAP_LAYER);
         ctx.cls();
-        ctx.set_active_console(INTERACTIVE_LAYER);
+        ctx.set_active_console(ENTITY_LAYER);
+        ctx.cls();
+        ctx.set_active_console(HUD_LAYER);
         ctx.cls();
         self.resources.insert(ctx.key);
+        ctx.set_active_console(MAP_LAYER);
+        self.resources.insert(Point::from_tuple(ctx.mouse_pos()));
         let current_state = self.resources.get::<TurnState>().unwrap().clone();
         match current_state {
             TurnState::AwaitingInput => self
@@ -93,8 +98,10 @@ fn main() -> BError {
         .with_tile_dimensions(32, 32)
         .with_resource_path("resources/")
         .with_font("dungeonfont.png", 32, 32)
+        .with_font("terminal8x8.png", 8, 8)
         .with_simple_console(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
         .with_simple_console_no_bg(DISPLAY_WIDTH, DISPLAY_HEIGHT, "dungeonfont.png")
+        .with_simple_console_no_bg(SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, "terminal8x8.png")
         .build()?;
 
     main_loop(context, State::new())
