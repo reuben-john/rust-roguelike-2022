@@ -14,5 +14,5 @@ pub fn collisions(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
         .filter(|(_, pos)| **pos == player_pos)
         .for_each(|(entity, _)| {
             commands.remove(*entity);
-        })
+        });
 }

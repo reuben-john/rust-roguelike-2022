@@ -13,6 +13,7 @@ pub fn random_move(ecs: &SubWorld, commands: &mut CommandBuffer) {
             2 => Point::new(0, -1),
             _ => Point::new(0, 1),
         } + *pos;
+
         commands.push((
             (),
             WantsToMove {

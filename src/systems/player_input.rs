@@ -10,6 +10,7 @@ pub fn player_input(
     #[resource] turn_state: &mut TurnState,
 ) {
     let mut players = <(Entity, &Point)>::query().filter(component::<Player>());
+
     if let Some(key) = *key {
         let delta = match key {
             VirtualKeyCode::Left => Point::new(-1, 0),
@@ -29,6 +30,6 @@ pub fn player_input(
                 },
             ));
         });
-        *turn_state = TurnState::PlayerTurn
+        *turn_state = TurnState::PlayerTurn;
     }
 }
