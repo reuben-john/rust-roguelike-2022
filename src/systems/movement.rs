@@ -2,6 +2,7 @@ use crate::prelude::*;
 
 #[system(for_each)]
 #[read_component(Player)]
+#[read_component(FieldOfView)]
 pub fn movement(
     entity: &Entity,
     want_move: &WantsToMove,
