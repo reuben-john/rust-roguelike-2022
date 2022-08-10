@@ -1,0 +1,24 @@
+<html>
+
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <title>Rust Roguelike 2022: Week 5</title>
+</head>
+
+<body>
+  <p>Rust Roguelike 2022 compiled to WASM. Code available at <a
+      href="https://github.com/reuben-john/rust-roguelike-2022/tree/week5">github</a>.</p>
+  <p> Controls are:</p>
+  <ul>
+    <li>Movement: Arrow Keys</li>
+  </ul>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <script src="./rust-roguelike-2022.js"></script>
+  <script>
+    window.addEventListener("load", async () => {
+      await wasm_bindgen("./rust-roguelike-2022_bg.wasm");
+    });
+  </script>
+</body>
+
+</html>
