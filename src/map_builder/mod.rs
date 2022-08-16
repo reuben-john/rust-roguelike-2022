@@ -6,8 +6,13 @@ const NUM_ROOMS: usize = 20;
 pub struct MapBuilder {
     pub map: Map,
     pub rooms: Vec<Rect>,
+    pub monster_spawns: Vec<Point>,
     pub player_start: Point,
     pub amulet_start: Point,
+}
+
+trait MapArchitect {
+    fn new(&mut self, rng: &mut RandomNumberGenerator) -> MapBuilder;
 }
 
 impl MapBuilder {
@@ -15,6 +20,7 @@ impl MapBuilder {
         let mut mb = MapBuilder {
             map: Map::new(),
             rooms: Vec::new(),
+            monster_spawns: Vec::new(),
             player_start: Point::zero(),
             amulet_start: Point::zero(),
         };
