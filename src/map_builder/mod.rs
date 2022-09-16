@@ -7,6 +7,7 @@ use rooms::RoomsArchitect;
 mod automata;
 mod drunkard;
 mod empty;
+mod prefab;
 mod rooms;
 
 const NUM_ROOMS: usize = 20;
