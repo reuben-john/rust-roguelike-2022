@@ -1,15 +1,16 @@
 use crate::map_builder::drunkard::DrunkardsWalkArchitect;
+use crate::map_builder::prefab::apply_prefab;
 use crate::prelude::*;
 use automata::CellularAutomataArchitect;
 use empty::EmptyArchitect;
 use rooms::RoomsArchitect;
-use crate::map_builder::prefab::apply_prefab;
 
 mod automata;
 mod drunkard;
 mod empty;
 mod prefab;
 mod rooms;
+mod themes;
 
 const NUM_ROOMS: usize = 20;
 pub struct MapBuilder {
@@ -146,4 +147,8 @@ impl MapBuilder {
         }
         spawns
     }
+}
+
+pub trait MapTheme: Sync + Send {
+    fn tile_to_render(&self, tile_type: TileType) -> FontCharType;
 }
