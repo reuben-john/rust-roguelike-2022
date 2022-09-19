@@ -61,6 +61,9 @@ pub struct ProvidesHealing {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ProvidesDungeonMap;
 
+#[derive(Clone, PartialEq)]
+pub struct Carried(pub Entity);
+
 impl FieldOfView {
     pub fn new(radius: i32) -> Self {
         Self {
