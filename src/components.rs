@@ -53,6 +53,14 @@ pub struct FieldOfView {
     pub is_dirty: bool,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ProvidesHealing {
+    pub amount: i32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ProvidesDungeonMap;
+
 impl FieldOfView {
     pub fn new(radius: i32) -> Self {
         Self {
