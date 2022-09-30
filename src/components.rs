@@ -65,7 +65,7 @@ pub struct ProvidesDungeonMap;
 pub struct Carried(pub Entity);
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct ActiveItem {
+pub struct ActivateItem {
     pub used_by: Entity,
     pub item: Entity,
 }

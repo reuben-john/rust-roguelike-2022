@@ -85,15 +85,6 @@ pub fn player_input(
                 ));
             }
         };
-        if !did_something {
-            if let Ok(mut health) = ecs
-                .entry_mut(player_entity)
-                .unwrap()
-                .get_component_mut::<Health>()
-            {
-                health.current = i32::min(health.max, health.current + 1);
-            }
-        }
         *turn_state = TurnState::PlayerTurn;
     }
 }
@@ -113,7 +104,7 @@ fn use_item(n: usize, ecs: &mut SubWorld, commands: &mut CommandBuffer) -> Point
     if let Some(item_entity) = item_entity {
         commands.push((
             (),
-            ActiveItem {
+            ActivateItem {
                 used_by: player_entity,
                 item: item_entity,
             },
