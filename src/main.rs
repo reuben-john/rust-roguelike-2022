@@ -42,9 +42,9 @@ impl State {
         let mut ecs = World::default();
         let mut resources = Resources::default();
         let mut rng = RandomNumberGenerator::new();
-        let map_builder = MapBuilder::new(&mut rng);
+        let mut map_builder = MapBuilder::new(&mut rng);
         spawn_player(&mut ecs, map_builder.player_start);
-        spawn_amulet_of_yala(&mut ecs, map_builder.amulet_start);
+        // spawn_amulet_of_yala(&mut ecs, map_builder.amulet_start);
         map_builder
             .monster_spawns
             .iter()
@@ -121,9 +121,9 @@ impl State {
         self.ecs = World::default();
         self.resources = Resources::default();
         let mut rng = RandomNumberGenerator::new();
-        let map_builder = MapBuilder::new(&mut rng);
+        let mut map_builder = MapBuilder::new(&mut rng);
         spawn_player(&mut self.ecs, map_builder.player_start);
-        spawn_amulet_of_yala(&mut self.ecs, map_builder.amulet_start);
+        // spawn_amulet_of_yala(&mut self.ecs, map_builder.amulet_start);
         map_builder
             .monster_spawns
             .iter()
